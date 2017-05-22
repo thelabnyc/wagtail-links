@@ -31,7 +31,7 @@ Neat:
 
 ![](admin.png)
 
-The string representation is the resultant link, so you may use it just like
+You may use it like:
 
 ```
     <a href="{{self.link.url}}">Link here</a>
