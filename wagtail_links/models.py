@@ -59,11 +59,17 @@ class Link(models.Model):
     ]
 
     def __str__(self):
-        return self.link
+        if self.link_external:
+            return self.link_external
+        elif self.link_relative:
+            return self.link_relative
+        elif self.link_page:
+            return self.link_page
+        return self.django_view_name
 
     @property
-    def link(self):
-        """ Get link for use in template """
+    def url(self):
+        """ Get url for use in template """
         if self.link_external:
             return self.link_external
         elif self.link_relative:

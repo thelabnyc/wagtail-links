@@ -10,17 +10,17 @@ from .models import Link
 class WagtailLinksTests(WagtailPageTests):
     def test_get_link(self):
         link = Link.objects.create(link_external="https://example.com")
-        self.assertEqual(str(link), "https://example.com")
+        self.assertEqual(link.url, "https://example.com")
 
         link = Link.objects.create(link_relative="/example.com")
-        self.assertEqual(str(link), "/example.com")
+        self.assertEqual(link.url, "/example.com")
 
         page = Page.objects.first()
         link = Link.objects.create(link_page=page)
-        self.assertEqual(str(link), "")
+        self.assertEqual(link.url, "")
 
         link = Link.objects.create(django_view_name="admin:index")
-        self.assertEqual(str(link), "/admin/")
+        self.assertEqual(link.url, "/admin/")
 
     def test_link_validation(self):
         link = Link(
@@ -41,6 +41,6 @@ class WagtailLinksTests(WagtailPageTests):
     @patch('wagtail_links.models.logger')
     def test_log_broken_links(self, mock_logger):
         link = Link.objects.create(django_view_name="doesnotexist")
-        link.link
+        link.url
         mock_logger.warning.assert_called_with(
             "Unable to reverse django url for link id 1")

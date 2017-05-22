@@ -34,7 +34,7 @@ Neat:
 The string representation is the resultant link, so you may use it just like
 
 ```
-    <a href="{{self.link}}">Link here</a>
+    <a href="{{self.link.url}}">Link here</a>
 ```
 
 ## Validation and logging
