@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse, NoReverseMatch
 
+from wagtail.wagtailadmin.edit_handlers import PageChooserPanel, FieldPanel
 from wagtail.wagtailsnippets.models import register_snippet
 
 import logging
@@ -49,6 +50,13 @@ class Link(models.Model):
             validate_django_reverse,
         ],
     )
+
+    panels = [
+        FieldPanel('link_external'),
+        FieldPanel('link_relative'),
+        PageChooserPanel('link_page'),
+        FieldPanel('django_view_name'),
+    ]
 
     def __str__(self):
         return self.link
