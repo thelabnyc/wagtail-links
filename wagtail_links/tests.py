@@ -44,3 +44,17 @@ class WagtailLinksTests(WagtailPageTests):
         link.url
         mock_logger.warning.assert_called_with(
             "Unable to reverse django url for link id 1")
+
+    def test_cast_link_to_string(self):
+        link = Link.objects.create(link_external="https://example.com")
+        self.assertEqual("{}".format(link), "https://example.com")
+
+        link = Link.objects.create(link_relative="/example.com")
+        self.assertEqual("{}".format(link), "/example.com")
+
+        page = Page.objects.first()
+        link = Link.objects.create(link_page=page)
+        self.assertEqual("{}".format(link), "Root")
+
+        link = Link.objects.create(django_view_name="admin:index")
+        self.assertEqual("{}".format(link), "admin:index")
