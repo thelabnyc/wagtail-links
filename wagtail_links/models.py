@@ -64,7 +64,7 @@ class Link(models.Model):
         elif self.link_relative:
             return self.link_relative
         elif self.link_page:
-            return self.link_page
+            return str(self.link_page)
         return self.django_view_name
 
     @property
