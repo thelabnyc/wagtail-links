@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="wagtail-links",
-    version="1.0.1",
+    version="1.0.2",
     author="David Burke",
     author_email="david@thelabnyc.com",
     description="Wagtail links provides a consistent way to refer to links in a wagtail page",
