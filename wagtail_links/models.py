@@ -40,7 +40,8 @@ class Link(models.Model):
         'wagtailcore.Page',
         null=True,
         blank=True,
-        related_name='+'
+        related_name='+',
+        on_delete=models.CASCADE,
     )
     django_view_name = models.CharField(
         max_length=255,
