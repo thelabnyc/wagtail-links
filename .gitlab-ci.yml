@@ -1,8 +1,17 @@
-image: python:3.6
-
 before_script:
-  - pip install -r requirements.txt
+  - pip install tox
 
-test:
-  script:
-    - ./manage.py test
+test_python35:
+  stage: test
+  image: python:3.5
+  script: tox --skip-missing-interpreters
+
+test_python36:
+  stage: test
+  image: python:3.6
+  script: tox --skip-missing-interpreters
+
+test_pypy35:
+  stage: test
+  image: pypy:3-5
+  script: tox --skip-missing-interpreters
