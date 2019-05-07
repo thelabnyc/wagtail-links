@@ -9,7 +9,7 @@ Distribution().fetch_build_eggs('versiontag>=1.2.0')
 from versiontag import get_version, cache_git_tag  # NOQA
 
 
-packages = find_packages()
+packages = find_packages('src')
 
 install_requires = [
     'wagtail>=2.0',
@@ -49,11 +49,12 @@ setup(
         'Intended Audience :: Developers',
         "License :: OSI Approved :: Apache Software License",
     ],
+    keywords="django wagtail",
     author="David Burke",
     author_email="dburke@thelabnyc.com",
     url="https://gitlab.com/thelabnyc/wagtail-links",
     license="Apache License",
-    keywords="django wagtail",
+    package_dir={'': 'src'},
     packages=packages,
     include_package_data=True,
     install_requires=install_requires,

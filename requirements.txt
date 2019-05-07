@@ -1,2 +1,0 @@
-Django==1.11.13
-wagtail==2.1
