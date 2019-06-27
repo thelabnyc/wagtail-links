@@ -58,7 +58,7 @@ class WagtailLinksTest(WagtailPageTests):
 
         page = Page.objects.first()
         link = Link.objects.create(link_page=page)
-        self.assertEqual("{}".format(link), "Link[link_page=Root]: ")
+        self.assertEqual("{}".format(link), "Link[link_page=Root]: No Link URL")
 
         link = Link.objects.create(django_view_name="admin:index")
         self.assertEqual("{}".format(link), "Link[django_view_name=admin:index]: /admin/")

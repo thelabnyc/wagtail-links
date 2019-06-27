@@ -1,0 +1,112 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-06-27 19:08+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Translators: Backend Library Name
+#: apps.py:8
+msgid "Wagtail Links"
+msgstr ""
+
+#. Translators: CMS error message
+#: models.py:18
+msgid "Invalid Django view name"
+msgstr ""
+
+#: models.py:31
+msgid "Name"
+msgstr ""
+
+#: models.py:33
+msgid "Unique name for this link (for use by Django templates)."
+msgstr ""
+
+#: models.py:34
+msgid "External Link"
+msgstr ""
+
+#: models.py:36
+msgid "Absolute URL Link"
+msgstr ""
+
+#: models.py:37
+msgid "Relative Link"
+msgstr ""
+
+#: models.py:44
+msgid "Relative URL Link"
+msgstr ""
+
+#: models.py:46 models.py:51
+msgid "Wagtail Page Link"
+msgstr ""
+
+#: models.py:52
+msgid "Django View Link"
+msgstr ""
+
+#: models.py:57
+msgid "Name of Django view for reverse lookup"
+msgstr ""
+
+#. Translators: Internal Model Name (singular)
+#: models.py:71
+msgid "Link"
+msgstr ""
+
+#. Translators: Internal Model Name (plural)
+#: models.py:73
+msgid "Links"
+msgstr ""
+
+#: models.py:83
+msgid "No Link URL"
+msgstr ""
+
+#: models.py:93
+#, python-format
+msgid "Link[name=%(name)s]: %(url)s"
+msgstr ""
+
+#: models.py:95
+#, python-format
+msgid "Link[link_external=%(link_external)s]: %(url)s"
+msgstr ""
+
+#: models.py:97
+#, python-format
+msgid "Link[link_relative=%(link_relative)s]: %(url)s"
+msgstr ""
+
+#: models.py:99
+#, python-format
+msgid "Link[link_page=%(link_page)s]: %(url)s"
+msgstr ""
+
+#: models.py:100
+#, python-format
+msgid "Link[django_view_name=%(django_view_name)s]: %(url)s"
+msgstr ""
+
+#: models.py:134
+msgid "You may only use one link type"
+msgstr ""
+
+#: models.py:136
+msgid "You must use exactly one link type"
+msgstr ""

@@ -14,7 +14,8 @@ def validate_django_reverse(view_name):
     try:
         reverse(view_name)
     except NoReverseMatch:
-        raise ValidationError(_('Invalid django view name'))
+        # Translators: CMS error message
+        raise ValidationError(_("Invalid Django view name"))
 
 
 class LinkManager(models.Manager):
@@ -27,36 +28,32 @@ class Link(models.Model):
     """
     A generic link that points somewhere else using various methods
     """
-    name = models.SlugField("Name",
+    name = models.SlugField(_("Name"),
         unique=True, null=True,
         help_text=_("Unique name for this link (for use by Django templates)."))
-    link_external = models.URLField("External link",
+    link_external = models.URLField(_("External Link"),
         blank=True,
         help_text=_("Absolute URL Link"))
-    link_relative = models.CharField(
-        "Relative link",
+    link_relative = models.CharField(_("Relative Link"),
         max_length=200,
         blank=True,
         validators=[
             RegexValidator(
                 regex=r'^(?!www\.|(?:http|ftp)s?://|[A-Za-z]:\\|//).*',
-                message='Not valid relative url',
-            ),
-        ],
+                message='Not valid relative url')],
         help_text=_("Relative URL Link"))
-    link_page = models.ForeignKey(
-        'wagtailcore.Page',
+    link_page = models.ForeignKey('wagtailcore.Page',
+        verbose_name=_("Wagtail Page Link"),
         null=True,
         blank=True,
         related_name='+',
         on_delete=models.CASCADE,
         help_text=_("Wagtail Page Link"))
-    django_view_name = models.CharField(
+    django_view_name = models.CharField(_("Django View Link"),
         max_length=255,
         blank=True,
         validators=[
-            validate_django_reverse,
-        ],
+            validate_django_reverse],
         help_text=_("Name of Django view for reverse lookup"))
 
     objects = LinkManager()
@@ -69,6 +66,12 @@ class Link(models.Model):
         FieldPanel('django_view_name'),
     ]
 
+    class Meta:
+        # Translators: Internal Model Name (singular)
+        verbose_name = _('Link')
+        # Translators: Internal Model Name (plural)
+        verbose_name_plural = _('Links')
+
 
     def natural_key(self):
         return (self.name, )
@@ -77,16 +80,24 @@ class Link(models.Model):
     def __str__(self):
         url = self.url
         if not url:
-            url = 'No Link URL'
+            url = _('No Link URL')
+        ctx = {
+            'name': self.name,
+            'link_external': self.link_external,
+            'link_relative': self.link_relative,
+            'link_page': self.link_page,
+            'django_view_name': self.django_view_name,
+            'url': url,
+        }
         if self.name:
-            return 'Link[name={}]: {}'.format(self.name, url)
+            return _("Link[name=%(name)s]: %(url)s") % ctx
         if self.link_external:
-            return 'Link[link_external={}]: {}'.format(self.link_external, url)
+            return _("Link[link_external=%(link_external)s]: %(url)s") % ctx
         if self.link_relative:
-            return 'Link[link_relative={}]: {}'.format(self.link_relative, url)
+            return _("Link[link_relative=%(link_relative)s]: %(url)s") % ctx
         if self.link_page:
-            return 'Link[link_page={}]: {}'.format(str(self.link_page), self.url)
-        return 'Link[django_view_name={}]: {}'.format(self.django_view_name, url)
+            return _("Link[link_page=%(link_page)s]: %(url)s") % ctx
+        return _("Link[django_view_name=%(django_view_name)s]: %(url)s") % ctx
 
 
     @property
@@ -108,7 +119,7 @@ class Link(models.Model):
         try:
             return reverse(self.django_view_name)
         except NoReverseMatch:
-            logger.warning('Unable to reverse Django URL for Link[id=%s]', self.id)
+            logger.warning("Unable to reverse Django URL for Link[id=%s]", self.id)
         # 5. Error Fallback
         return ''
 
@@ -120,6 +131,6 @@ class Link(models.Model):
             bool(self.link_page) + \
             bool(self.django_view_name)
         if number_used > 1:
-            raise ValidationError(_('You may only use one link type'))
+            raise ValidationError(_("You may only use one link type"))
         if number_used == 0:
-            raise ValidationError(_('You must use exactly one link type'))
+            raise ValidationError(_("You must use exactly one link type"))
