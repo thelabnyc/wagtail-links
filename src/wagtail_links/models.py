@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse, NoReverseMatch
 from wagtail.admin.edit_handlers import PageChooserPanel, FieldPanel
+from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 import logging
 
@@ -24,7 +25,7 @@ class LinkManager(models.Manager):
 
 
 @register_snippet
-class Link(models.Model):
+class Link(index.Indexed, models.Model):
     """
     A generic link that points somewhere else using various methods
     """
@@ -64,6 +65,10 @@ class Link(models.Model):
         FieldPanel('link_relative'),
         PageChooserPanel('link_page'),
         FieldPanel('django_view_name'),
+    ]
+
+    search_fields = [
+        index.RelatedFields('link_page', [index.SearchField('title')]),
     ]
 
     class Meta:
