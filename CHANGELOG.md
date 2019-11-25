@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.2.0
+
+- Made Links searchable by "link_page.title"
+
 ## v2.1.0
 
 - Added new "name" field to Link objects. Serves as a unique Link identifier.
