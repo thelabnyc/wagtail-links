@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.3.0
+
+- Made Links searchable by partial "link_page.title"
+
 ## v2.2.0
 
 - Made Links searchable by "link_page.title"
