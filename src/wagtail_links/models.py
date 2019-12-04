@@ -29,8 +29,13 @@ class Link(index.Indexed, models.Model):
     """
     A generic link that points somewhere else using various methods
     """
+    title = models.SlugField(_("Title"),
+        blank=True,
+        help_text=_("Description of link for use in ARIA compliance"))
     name = models.SlugField(_("Name"),
-        unique=True, null=True,
+        unique=True,
+        null=True,
+        blank=True,
         help_text=_("Unique name for this link (for use by Django templates)."))
     link_external = models.URLField(_("External Link"),
         blank=True,
