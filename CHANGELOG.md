@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.4.1
+
+- Fix bug with optional `name` field
+- Fix type of `title` field
+
 ## v2.4.0
 
 - Adding optional `title` field to Links, make `name` field optional
