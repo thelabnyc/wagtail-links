@@ -29,7 +29,8 @@ class Link(index.Indexed, models.Model):
     """
     A generic link that points somewhere else using various methods
     """
-    title = models.SlugField(_("Title"),
+    title = models.CharField(_("Title"),
+        max_length=200,
         blank=True,
         help_text=_("Description of link for use in ARIA compliance"))
     name = models.SlugField(_("Name"),
@@ -65,6 +66,7 @@ class Link(index.Indexed, models.Model):
     objects = LinkManager()
 
     panels = [
+        FieldPanel('title'),
         FieldPanel('name'),
         FieldPanel('link_external'),
         FieldPanel('link_relative'),
