@@ -64,6 +64,13 @@ class WagtailLinksTest(WagtailPageTests):
         self.assertEqual("{}".format(link), "Link[django_view_name=admin:index]: /admin/")
 
 
+    def test_multiple_blank_link_names(self):
+        link1 = Link.objects.create(name='', link_external="https://example.com/1")
+        link2 = Link.objects.create(name='', link_external="https://example.com/2")
+        self.assertEqual(link1.name, '')
+        self.assertEqual(link2.name, '')
+
+
 
 class WagtailLinksTagsTest(WagtailPageTests):
     def test_get_wagtail_link(self):

@@ -6,6 +6,7 @@ from django.urls import reverse, NoReverseMatch
 from wagtail.admin.edit_handlers import PageChooserPanel, FieldPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
+from .fields import NullSlugField
 import logging
 
 logger = logging.getLogger(__name__)
@@ -33,10 +34,8 @@ class Link(index.Indexed, models.Model):
         max_length=200,
         blank=True,
         help_text=_("Description of link for use in ARIA compliance"))
-    name = models.SlugField(_("Name"),
+    name = NullSlugField(_("Name"),
         unique=True,
-        null=True,
-        blank=True,
         help_text=_("Unique name for this link (for use by Django templates)."))
     link_external = models.URLField(_("External Link"),
         blank=True,
