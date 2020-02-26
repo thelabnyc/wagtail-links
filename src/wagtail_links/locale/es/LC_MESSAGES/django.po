@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-01 17:00+0000\n"
+"POT-Creation-Date: 2020-02-26 20:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,102 +19,102 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Translators: Backend Library Name
-#: apps.py:8
+#: wagtail_links/apps.py:8
 msgid "Wagtail Links"
 msgstr ""
 
 #. Translators: CMS error message
-#: models.py:20
+#: wagtail_links/models.py:20
 msgid "Invalid Django view name"
 msgstr ""
 
-#: models.py:33
+#: wagtail_links/models.py:33
 msgid "Title"
 msgstr ""
 
-#: models.py:36
+#: wagtail_links/models.py:36
 msgid "Description of link for use in ARIA compliance"
 msgstr ""
 
-#: models.py:37
+#: wagtail_links/models.py:37
 msgid "Name"
 msgstr ""
 
-#: models.py:39
+#: wagtail_links/models.py:39
 msgid "Unique name for this link (for use by Django templates)."
 msgstr ""
 
-#: models.py:40
+#: wagtail_links/models.py:40
 msgid "External Link"
 msgstr ""
 
-#: models.py:42
+#: wagtail_links/models.py:42
 msgid "Absolute URL Link"
 msgstr ""
 
-#: models.py:43
+#: wagtail_links/models.py:43
 msgid "Relative Link"
 msgstr ""
 
-#: models.py:50
+#: wagtail_links/models.py:50
 msgid "Relative URL Link"
 msgstr ""
 
-#: models.py:52 models.py:57
+#: wagtail_links/models.py:52 wagtail_links/models.py:57
 msgid "Wagtail Page Link"
 msgstr ""
 
-#: models.py:58
+#: wagtail_links/models.py:58
 msgid "Django View Link"
 msgstr ""
 
-#: models.py:63
+#: wagtail_links/models.py:63
 msgid "Name of Django view for reverse lookup"
 msgstr ""
 
 #. Translators: Internal Model Name (singular)
-#: models.py:82
+#: wagtail_links/models.py:82
 msgid "Link"
 msgstr ""
 
 #. Translators: Internal Model Name (plural)
-#: models.py:84
+#: wagtail_links/models.py:84
 msgid "Links"
 msgstr ""
 
-#: models.py:94
+#: wagtail_links/models.py:94
 msgid "No Link URL"
 msgstr ""
 
-#: models.py:104
+#: wagtail_links/models.py:104
 #, python-format
 msgid "Link[name=%(name)s]: %(url)s"
 msgstr ""
 
-#: models.py:106
+#: wagtail_links/models.py:106
 #, python-format
 msgid "Link[link_external=%(link_external)s]: %(url)s"
 msgstr ""
 
-#: models.py:108
+#: wagtail_links/models.py:108
 #, python-format
 msgid "Link[link_relative=%(link_relative)s]: %(url)s"
 msgstr ""
 
-#: models.py:110
+#: wagtail_links/models.py:110
 #, python-format
 msgid "Link[link_page=%(link_page)s]: %(url)s"
 msgstr ""
 
-#: models.py:111
+#: wagtail_links/models.py:111
 #, python-format
 msgid "Link[django_view_name=%(django_view_name)s]: %(url)s"
 msgstr ""
 
-#: models.py:145
+#: wagtail_links/models.py:145
 msgid "You may only use one link type"
 msgstr ""
 
-#: models.py:147
+#: wagtail_links/models.py:147
 msgid "You must use exactly one link type"
 msgstr ""
