@@ -2,6 +2,10 @@
 
 ## v2.4.2
 
+- Use `title`, not `name` for search.
+
+## v2.4.2
+
 - Fix bug with search index
 
 ## v2.4.1
