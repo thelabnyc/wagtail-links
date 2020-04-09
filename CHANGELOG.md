@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.4.3
+
+- Use `title`, not `name` for search.
+
 ## v2.4.2
 
 - Fix bug with search index
