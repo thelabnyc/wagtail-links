@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.4.2
+
+- Fix bug with search index
+
 ## v2.4.1
 
 - Fix bug with optional `name` field
