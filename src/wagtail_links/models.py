@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse, NoReverseMatch
 from wagtail.admin.edit_handlers import PageChooserPanel, FieldPanel
 from wagtail.search import index
