@@ -1,18 +1,10 @@
 stages:
   - test
 
-variables:
-  # Set SAST / DAST testing version
-  SP_VERSION: 11-10-stable
-
 cache:
   key: "$CI_PROJECT_NAME"
   paths:
     - $HOME/.cache/pip
-
-include:
-  - project: thelabnyc/gitlab-ci-templates
-    file: /ci/sast.gitlab-ci.yml
 
 test_python36:
   stage: test
