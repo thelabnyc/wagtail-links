@@ -15,13 +15,13 @@ test:
   parallel:
     matrix:
       - IMAGE: python:3.7
-        TOX_ENVS: py37-django{220,300,310}-wagtail{209,210,211}
+        TOX_ENVS: py37-django{220,300}-wagtail{209,210,211},py37-django{310}-wagtail{210,211}
 
       - IMAGE: python:3.8
-        TOX_ENVS: py38-django{220,300,310}-wagtail{209,210,211}
+        TOX_ENVS: py38-django{220,300}-wagtail{209,210,211},py38-django{310}-wagtail{210,211}
 
       - IMAGE: python:3.9
-        TOX_ENVS: py39-django{220,300,310}-wagtail{209,210,211}
+        TOX_ENVS: py39-django{220,300}-wagtail{209,210,211},py39-django{310}-wagtail{210,211}
 
       - IMAGE: pypy:3
-        TOX_ENVS: pypy3-django{220,300,310}-wagtail{209,210,211}
+        TOX_ENVS: pypy3-django{220,300}-wagtail{209,210,211},pypy3-django{310}-wagtail{210,211}
