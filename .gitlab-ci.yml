@@ -22,6 +22,3 @@ test:
 
       - IMAGE: python:3.9
         TOX_ENVS: py39-django{220,300}-wagtail{209,210,211,212,213},py39-django{310}-wagtail{211,212,213},py39-django{320}-wagtail{213}
-
-      - IMAGE: pypy:3
-        TOX_ENVS: pypy3-django{220,300}-wagtail{209,210,211,212,213},pypy3-django{310}-wagtail{211,212,213},pypy3-django{320}-wagtail{213}
