@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.4.4
+
+- Add Wagtail 3.0 to test suite.
+
 ## v2.4.3
 
 - Use `title`, not `name` for search.
