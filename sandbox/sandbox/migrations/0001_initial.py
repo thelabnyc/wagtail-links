@@ -11,20 +11,39 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('wagtail_links', '0002_auto_20170522_1552'),
-        ('wagtailcore', '0033_remove_golive_expiry_help_text'),
+        ("wagtail_links", "0002_auto_20170522_1552"),
+        ("wagtailcore", "0033_remove_golive_expiry_help_text"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ExamplePage',
+            name="ExamplePage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('link', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtail_links.Link')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                (
+                    "link",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtail_links.Link",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('wagtailcore.page',),
+            bases=("wagtailcore.page",),
         ),
     ]

@@ -7,13 +7,17 @@ import wagtail_links.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtail_links', '0006_auto_20200101_1646'),
+        ("wagtail_links", "0006_auto_20200101_1646"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='link',
-            name='name',
-            field=wagtail_links.fields.NullSlugField(help_text='Unique name for this link (for use by Django templates).', unique=True, verbose_name='Name'),
+            model_name="link",
+            name="name",
+            field=wagtail_links.fields.NullSlugField(
+                help_text="Unique name for this link (for use by Django templates).",
+                unique=True,
+                verbose_name="Name",
+            ),
         ),
     ]
