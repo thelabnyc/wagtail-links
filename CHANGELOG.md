@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.5.0
+
+- Add Wagtail 4.0.x and 4.1.x to test suite.
+
 ## v2.4.4
 
 - Add Wagtail 3.0 to test suite.
