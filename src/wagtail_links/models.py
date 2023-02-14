@@ -3,7 +3,7 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse, NoReverseMatch
-from wagtail.admin.edit_handlers import PageChooserPanel, FieldPanel
+from wagtail.admin.panels import PageChooserPanel, FieldPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from .fields import NullSlugField
