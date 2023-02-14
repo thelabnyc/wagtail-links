@@ -12,7 +12,7 @@ from versiontag import get_version, cache_git_tag  # NOQA
 packages = find_packages("src")
 
 install_requires = [
-    "wagtail>=2.0,<4.0",
+    "wagtail>=3.0,<4.2",
 ]
 
 extras_require = {

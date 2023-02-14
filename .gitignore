@@ -163,6 +163,9 @@ venv.bak/
 # sftp configuration file
 sftp-config.json
 
+#pycharm specific file
+.idea
+
 # Package control specific files
 Package Control.last-run
 Package Control.ca-list

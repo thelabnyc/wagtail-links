@@ -1,6 +1,6 @@
 from django.db import models
 from wagtail import VERSION as WAGTAIL_VERSION
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 # See "Removal of special-purpose field panel types"
