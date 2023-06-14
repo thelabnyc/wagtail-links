@@ -2,7 +2,7 @@
 
 ## v2.5.0
 
-- Add Wagtail 4.0.x and 4.1.x to test suite.
+- Add Wagtail 4.0.x, 4.1.x, 4.2.x, and 5.0.x to test suite.
 
 ## v2.4.4
 
