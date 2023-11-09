@@ -1,0 +1,25 @@
+[build-system]
+requires = [ "poetry-core>=1.0.0",]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "wagtail-links"
+version = "2.6.0.post2"
+description = "Wagtail links provides a consistent way to refer to links in a wagtail page."
+authors = [ "thelabnyc <thelabdev@thelabnyc.com>",]
+readme = "README.rst"
+homepage = "https://gitlab.com/thelabnyc/wagtail-links"
+repository = "https://gitlab.com/thelabnyc/wagtail-links"
+license = "ISC"
+
+[[tool.poetry.packages]]
+include = "wagtail_links"
+from = "src"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+wagtail = ">=4.1,<6.0"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = ">=3.3.0"
+tox = ">=2.7.0"

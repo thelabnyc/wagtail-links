@@ -1,2 +1,0 @@
-recursive-include src/wagtail_links/static *
-recursive-include src/wagtail_links/locale *.po *.mo
