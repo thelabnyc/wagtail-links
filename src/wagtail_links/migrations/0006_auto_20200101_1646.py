@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtail_links", "0005_auto_20191203_1908_squashed_0006_auto_20191204_2129"),
     ]

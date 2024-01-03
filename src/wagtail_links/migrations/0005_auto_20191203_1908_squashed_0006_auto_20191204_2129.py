@@ -7,7 +7,6 @@ import wagtail_links.models
 
 
 class Migration(migrations.Migration):
-
     replaces = [
         ("wagtail_links", "0005_auto_20191203_1908"),
         ("wagtail_links", "0006_auto_20191204_2129"),
