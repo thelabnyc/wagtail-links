@@ -5,7 +5,6 @@ import wagtail_links.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("wagtail_links", "0006_auto_20200101_1646"),
     ]
