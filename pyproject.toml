@@ -18,7 +18,7 @@ from = "src"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-wagtail = ">=4.1,<6.0"
+wagtail = ">=5.2,<6.0"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = ">=3.3.0"
