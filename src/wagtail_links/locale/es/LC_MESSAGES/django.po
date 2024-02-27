@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-15 20:05+0000\n"
+"POT-Creation-Date: 2024-02-27 15:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,48 +73,48 @@ msgid "Name of Django view for reverse lookup"
 msgstr ""
 
 #. Translators: Internal Model Name (singular)
-#: wagtail_links/models.py:97
+#: wagtail_links/models.py:95
 msgid "Link"
 msgstr ""
 
 #. Translators: Internal Model Name (plural)
-#: wagtail_links/models.py:99
+#: wagtail_links/models.py:97
 msgid "Links"
 msgstr ""
 
-#: wagtail_links/models.py:107
+#: wagtail_links/models.py:105
 msgid "No Link URL"
 msgstr ""
 
-#: wagtail_links/models.py:117
+#: wagtail_links/models.py:115
 #, python-format
 msgid "Link[name=%(name)s]: %(url)s"
 msgstr ""
 
-#: wagtail_links/models.py:119
+#: wagtail_links/models.py:117
 #, python-format
 msgid "Link[link_external=%(link_external)s]: %(url)s"
 msgstr ""
 
-#: wagtail_links/models.py:121
+#: wagtail_links/models.py:119
 #, python-format
 msgid "Link[link_relative=%(link_relative)s]: %(url)s"
 msgstr ""
 
-#: wagtail_links/models.py:123
+#: wagtail_links/models.py:121
 #, python-format
 msgid "Link[link_page=%(link_page)s]: %(url)s"
 msgstr ""
 
-#: wagtail_links/models.py:124
+#: wagtail_links/models.py:122
 #, python-format
 msgid "Link[django_view_name=%(django_view_name)s]: %(url)s"
 msgstr ""
 
-#: wagtail_links/models.py:158
+#: wagtail_links/models.py:156
 msgid "You may only use one link type"
 msgstr ""
 
-#: wagtail_links/models.py:160
+#: wagtail_links/models.py:158
 msgid "You must use exactly one link type"
 msgstr ""
