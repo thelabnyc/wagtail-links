@@ -86,10 +86,8 @@ class Link(index.Indexed, models.Model):
     ]
 
     search_fields = [
-        index.RelatedFields(
-            "link_page", [index.SearchField("title", partial_match=True)]
-        ),
-        index.SearchField("title", partial_match=True),
+        index.RelatedFields("link_page", [index.AutocompleteField("title")]),
+        index.AutocompleteField("title"),
     ]
 
     class Meta:
