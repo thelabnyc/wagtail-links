@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "wagtail-links"
-version = "2.6.0.post2"
+version = "2.7.0"
 description = "Wagtail links provides a consistent way to refer to links in a wagtail page."
 authors = [ "thelabnyc <thelabdev@thelabnyc.com>",]
 readme = "README.rst"
