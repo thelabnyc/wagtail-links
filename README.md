@@ -1,9 +1,6 @@
-=============
-Wagtail Links
-=============
+# wagtail-links
 
-Purpose
-=======
+## Purpose
 
 Wagtail links has two goals:
 
@@ -12,65 +9,59 @@ Wagtail links has two goals:
 
 
 
-Install
-=======
+## Install
 
 Install wagtail-links via Pip.
 
-.. code:: bash
+```sh
+pip install wagtail-links
+```
 
-    pip install wagtail-links
-
-Add ``wagtail_links`` to your Django project's INSTALLED_APPS setting.
+Add `wagtail_links` to your Django project's `INSTALLED_APPS` setting.
 
 Run database migrations.
 
-.. code:: bash
+```sh
+python manage.py migrate
+```
 
-    python manage.py migrate
 
-
-
-Usage
-=====
+## Usage
 
 Add a foreign key to the page you wish to add links to.
 
-.. code:: python
-
-    my_link = models.ForeignKey(
-        'wagtail_links.Link',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
+```py
+my_link = models.ForeignKey(
+    'wagtail_links.Link',
+    null=True,
+    blank=True,
+    on_delete=models.SET_NULL,
+    related_name='+'
+)
+```
 
 Neat:
 
-.. image:: admin.png
+![](admin.png)
 
 You may use it like:
 
-.. code:: html
-
-    <a href="{{ self.link.url }}">Link here</a>
-
+```html
+<a href="{{ self.link.url }}">Link here</a>
+```
 
 From a template, you can also load a link by its name:
 
-.. code:: html
+```html
+{% load get_wagtail_link_url from wagtail_links %}
 
-    {% load get_wagtail_link_url from wagtail_links %}
-
-    <a href="{% get_wagtail_link_url 'my-link' %}">Link here</a>
+<a href="{% get_wagtail_link_url 'my-link' %}">Link here</a>
+```
 
 This is useful for global page links, navigation, etc.
 
 
-
-Validation and logging
-======================
+## Validation and logging
 
 The Link model will validate that one and only one field is set.
 It will also disallow invalid Django reverse view names.
