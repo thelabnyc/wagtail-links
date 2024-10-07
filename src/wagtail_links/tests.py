@@ -1,8 +1,10 @@
+from unittest.mock import patch
+
 from django.core.exceptions import ValidationError
 from django.template import Context, Template
-from wagtail.test.utils import WagtailPageTests
 from wagtail.models import Page
-from unittest.mock import patch
+from wagtail.test.utils import WagtailPageTests
+
 from .models import Link
 
 
@@ -37,7 +39,7 @@ class WagtailLinksTest(WagtailPageTests):
         with self.assertRaises(ValidationError):
             link.full_clean()
 
-    @patch("wagtail_links.models.logger")
+    @patch("wagtail_links.resolver.logger")
     def test_log_broken_links(self, mock_logger):
         link = Link.objects.create(django_view_name="doesnotexist")
         link.url

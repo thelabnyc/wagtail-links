@@ -21,6 +21,12 @@ repos:
       - id: black
         types: [file, python]
 
+  - repo: https://github.com/pycqa/isort
+    rev: "5.13.2"
+    hooks:
+      - id: isort
+        name: isort (python)
+
   - repo: https://github.com/commitizen-tools/commitizen
     rev: v3.29.1
     hooks:
