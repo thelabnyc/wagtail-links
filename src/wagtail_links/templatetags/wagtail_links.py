@@ -1,3 +1,4 @@
+from typing import Optional
 from django import template
 from ..models import Link
 import logging
@@ -9,7 +10,7 @@ register = template.Library()
 
 
 @register.simple_tag
-def get_wagtail_link(link_name):
+def get_wagtail_link(link_name: str) -> Optional[Link]:
     try:
         link = Link.objects.get_by_natural_key(link_name)
     except Link.DoesNotExist:
@@ -19,7 +20,7 @@ def get_wagtail_link(link_name):
 
 
 @register.simple_tag
-def get_wagtail_link_url(link_name):
+def get_wagtail_link_url(link_name: str) -> str:
     link = get_wagtail_link(link_name)
     if link is None:
         return ""

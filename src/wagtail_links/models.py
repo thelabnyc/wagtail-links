@@ -1,8 +1,10 @@
+from typing import Tuple
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext, gettext_lazy as _
 from django.urls import reverse, NoReverseMatch
+from django_stubs_ext.db.models import TypedModelMeta
 from wagtail.admin.panels import PageChooserPanel, FieldPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
@@ -12,7 +14,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def validate_django_reverse(view_name):
+def validate_django_reverse(view_name: str) -> None:
     try:
         reverse(view_name)
     except NoReverseMatch:
@@ -20,8 +22,8 @@ def validate_django_reverse(view_name):
         raise ValidationError(_("Invalid Django view name"))
 
 
-class LinkManager(models.Manager):
-    def get_by_natural_key(self, name):
+class LinkManager(models.Manager["Link"]):
+    def get_by_natural_key(self, name: str) -> "Link":
         return self.get(name=name)
 
 
@@ -86,23 +88,28 @@ class Link(index.Indexed, models.Model):
     ]
 
     search_fields = [
-        index.RelatedFields("link_page", [index.AutocompleteField("title")]),
+        index.RelatedFields(
+            "link_page",
+            [
+                index.AutocompleteField("title"),
+            ],
+        ),
         index.AutocompleteField("title"),
     ]
 
-    class Meta:
+    class Meta(TypedModelMeta):
         # Translators: Internal Model Name (singular)
         verbose_name = _("Link")
         # Translators: Internal Model Name (plural)
         verbose_name_plural = _("Links")
 
-    def natural_key(self):
+    def natural_key(self) -> Tuple[str]:
         return (self.name,)
 
-    def __str__(self):
+    def __str__(self) -> str:
         url = self.url
         if not url:
-            url = _("No Link URL")
+            url = gettext("No Link URL")
         ctx = {
             "name": self.name,
             "link_external": self.link_external,
@@ -112,17 +119,17 @@ class Link(index.Indexed, models.Model):
             "url": url,
         }
         if self.name:
-            return _("Link[name=%(name)s]: %(url)s") % ctx
+            return gettext("Link[name=%(name)s]: %(url)s") % ctx
         if self.link_external:
-            return _("Link[link_external=%(link_external)s]: %(url)s") % ctx
+            return gettext("Link[link_external=%(link_external)s]: %(url)s") % ctx
         if self.link_relative:
-            return _("Link[link_relative=%(link_relative)s]: %(url)s") % ctx
+            return gettext("Link[link_relative=%(link_relative)s]: %(url)s") % ctx
         if self.link_page:
-            return _("Link[link_page=%(link_page)s]: %(url)s") % ctx
-        return _("Link[django_view_name=%(django_view_name)s]: %(url)s") % ctx
+            return gettext("Link[link_page=%(link_page)s]: %(url)s") % ctx
+        return gettext("Link[django_view_name=%(django_view_name)s]: %(url)s") % ctx
 
     @property
-    def url(self):
+    def url(self) -> str:
         """Get URL for use in template"""
         # 1. External Links
         if self.link_external:
@@ -144,7 +151,7 @@ class Link(index.Indexed, models.Model):
         # 5. Error Fallback
         return ""
 
-    def clean(self):
+    def clean(self) -> None:
         # Don't allow multiple link types to be used
         number_used = (
             bool(self.link_external)
