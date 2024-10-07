@@ -37,7 +37,7 @@ class WagtailLinksTest(WagtailPageTests):
         with self.assertRaises(ValidationError):
             link.full_clean()
 
-    @patch("wagtail_links.models.logger")
+    @patch("wagtail_links.resolver.logger")
     def test_log_broken_links(self, mock_logger):
         link = Link.objects.create(django_view_name="doesnotexist")
         link.url

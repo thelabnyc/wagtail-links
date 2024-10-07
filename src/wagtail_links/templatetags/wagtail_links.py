@@ -11,6 +11,9 @@ register = template.Library()
 
 @register.simple_tag
 def get_wagtail_link(link_name: str) -> Optional[Link]:
+    """
+    Get a Link object by its name.
+    """
     try:
         link = Link.objects.get_by_natural_key(link_name)
     except Link.DoesNotExist:
@@ -21,6 +24,9 @@ def get_wagtail_link(link_name: str) -> Optional[Link]:
 
 @register.simple_tag
 def get_wagtail_link_url(link_name: str) -> str:
+    """
+    Get a Link URL by its Link name.
+    """
     link = get_wagtail_link(link_name)
     if link is None:
         return ""

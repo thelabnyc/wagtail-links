@@ -1,8 +1,10 @@
-from typing import Tuple
+from typing import Tuple, Any, Protocol
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
-from django.utils.translation import gettext, gettext_lazy as _
+from django.utils.translation import gettext_lazy as _
+from django.utils.module_loading import import_string
 from django.urls import reverse, NoReverseMatch
 from django_stubs_ext.db.models import TypedModelMeta
 from wagtail.admin.panels import PageChooserPanel, FieldPanel
@@ -20,6 +22,17 @@ def validate_django_reverse(view_name: str) -> None:
     except NoReverseMatch:
         # Translators: CMS error message
         raise ValidationError(_("Invalid Django view name"))
+
+
+class LinkResolver(Protocol):
+    def get_descr(self, link: "Link") -> str: ...
+
+    def get_url(
+        self,
+        link: "Link",
+        *args: Any,
+        **kwargs: Any,
+    ) -> str: ...
 
 
 class LinkManager(models.Manager["Link"]):
@@ -107,49 +120,12 @@ class Link(index.Indexed, models.Model):
         return (self.name,)
 
     def __str__(self) -> str:
-        url = self.url
-        if not url:
-            url = gettext("No Link URL")
-        ctx = {
-            "name": self.name,
-            "link_external": self.link_external,
-            "link_relative": self.link_relative,
-            "link_page": self.link_page,
-            "django_view_name": self.django_view_name,
-            "url": url,
-        }
-        if self.name:
-            return gettext("Link[name=%(name)s]: %(url)s") % ctx
-        if self.link_external:
-            return gettext("Link[link_external=%(link_external)s]: %(url)s") % ctx
-        if self.link_relative:
-            return gettext("Link[link_relative=%(link_relative)s]: %(url)s") % ctx
-        if self.link_page:
-            return gettext("Link[link_page=%(link_page)s]: %(url)s") % ctx
-        return gettext("Link[django_view_name=%(django_view_name)s]: %(url)s") % ctx
+        return self.get_resolver().get_descr(self)
 
     @property
     def url(self) -> str:
         """Get URL for use in template"""
-        # 1. External Links
-        if self.link_external:
-            return self.link_external
-        # 2. Relative Links
-        if self.link_relative:
-            return self.link_relative
-        # 3. Wagtail Page Links
-        if self.link_page:
-            url = self.link_page.url
-            if url is None:
-                return ""
-            return url
-        # 4. Django View Links
-        try:
-            return reverse(self.django_view_name)
-        except NoReverseMatch:
-            logger.warning("Unable to reverse Django URL for Link[id=%s]", self.id)
-        # 5. Error Fallback
-        return ""
+        return self.get_url()
 
     def clean(self) -> None:
         # Don't allow multiple link types to be used
@@ -163,3 +139,21 @@ class Link(index.Indexed, models.Model):
             raise ValidationError(_("You may only use one link type"))
         if number_used == 0:
             raise ValidationError(_("You must use exactly one link type"))
+
+    def get_resolver(self) -> LinkResolver:
+        conf: dict[str, Any] = getattr(
+            settings,
+            "WAGTAIL_LINKS",
+            {},
+        )
+        resolver_path: str = conf.get(
+            "RESOLVER",
+            "wagtail_links.resolver.DefaultLinkResolver",
+        )
+        resolver_opts: dict[str, Any] = conf.get("RESOLVER_OPTIONS", {})
+        Resolver: type[LinkResolver] = import_string(resolver_path)
+        return Resolver(**resolver_opts)
+
+    def get_url(self, *args: Any, **kwargs: Any) -> str:
+        resolver = self.get_resolver()
+        return resolver.get_url(self, *args, **kwargs)
