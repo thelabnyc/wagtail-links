@@ -1,8 +1,9 @@
 from typing import Optional
-from django import template
-from ..models import Link
 import logging
 
+from django import template
+
+from ..models import Link
 
 logger = logging.getLogger(__name__)
 

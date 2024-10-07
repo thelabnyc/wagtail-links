@@ -1,5 +1,5 @@
-from typing import Any, Optional
 from collections.abc import Sequence
+from typing import Any, Optional
 
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models.fields import SlugField

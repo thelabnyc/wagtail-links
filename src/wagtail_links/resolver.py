@@ -1,7 +1,7 @@
 from typing import Any
 import logging
 
-from django.urls import reverse, NoReverseMatch
+from django.urls import NoReverseMatch, reverse
 from django.utils.translation import gettext
 
 from .models import Link

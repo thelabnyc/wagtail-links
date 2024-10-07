@@ -1,8 +1,10 @@
+from unittest.mock import patch
+
 from django.core.exceptions import ValidationError
 from django.template import Context, Template
-from wagtail.test.utils import WagtailPageTests
 from wagtail.models import Page
-from unittest.mock import patch
+from wagtail.test.utils import WagtailPageTests
+
 from .models import Link
 
 

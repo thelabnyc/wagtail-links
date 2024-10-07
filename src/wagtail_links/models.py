@@ -1,17 +1,19 @@
-from typing import Tuple, Any, Protocol
+from typing import Any, Protocol, Tuple
+import logging
+
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from django.urls import NoReverseMatch, reverse
 from django.utils.module_loading import import_string
-from django.urls import reverse, NoReverseMatch
+from django.utils.translation import gettext_lazy as _
 from django_stubs_ext.db.models import TypedModelMeta
-from wagtail.admin.panels import PageChooserPanel, FieldPanel
+from wagtail.admin.panels import FieldPanel, PageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
+
 from .fields import NullSlugField
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -25,9 +27,9 @@ def validate_django_reverse(view_name: str) -> None:
 
 
 class LinkResolver(Protocol):
-    def get_descr(self, link: "Link") -> str: ...
+    def get_descr(self, link: "Link") -> str: ...  # NOQA: E704
 
-    def get_url(
+    def get_url(  # NOQA: E704
         self,
         link: "Link",
         *args: Any,

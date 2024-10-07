@@ -2,7 +2,6 @@ from django.db import models
 from wagtail import VERSION as WAGTAIL_VERSION
 from wagtail.models import Page
 
-
 # See "Removal of special-purpose field panel types"
 # https://docs.wagtail.org/en/stable/releases/3.0.html#removal-of-special-purpose-field-panel-types
 if WAGTAIL_VERSION[0] >= 3:
