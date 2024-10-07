@@ -32,6 +32,7 @@ class LinkResolver(Protocol):
     def get_url(  # NOQA: E704
         self,
         link: "Link",
+        localized: bool = True,
         *args: Any,
         **kwargs: Any,
     ) -> str: ...

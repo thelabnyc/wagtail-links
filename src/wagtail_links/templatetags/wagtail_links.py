@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any, Optional
 import logging
 
 from django import template
@@ -24,11 +24,16 @@ def get_wagtail_link(link_name: str) -> Optional[Link]:
 
 
 @register.simple_tag
-def get_wagtail_link_url(link_name: str) -> str:
+def get_wagtail_link_url(
+    link_name: str,
+    localized: bool = True,
+    *args: Any,
+    **kwargs: Any,
+) -> str:
     """
     Get a Link URL by its Link name.
     """
     link = get_wagtail_link(link_name)
     if link is None:
         return ""
-    return link.url
+    return link.get_url(localized=localized, *args, **kwargs)

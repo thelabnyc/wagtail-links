@@ -35,6 +35,7 @@ class DefaultLinkResolver:
     def get_url(
         self,
         link: Link,
+        localized: bool = True,
         *args: Any,
         **kwargs: Any,
     ) -> str:
@@ -46,7 +47,10 @@ class DefaultLinkResolver:
             return link.link_relative
         # 3. Wagtail Page Links
         if link.link_page:
-            url = link.link_page.url
+            if localized:
+                url = link.link_page.localized.url
+            else:
+                url = link.link_page.url
             if url is None:
                 return ""
             return url
