@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "wagtail-links"
-version = "2.8.1"
+version = "2.9.0"
 description = "Wagtail links provides a consistent way to refer to links in a wagtail page."
 authors = ["thelab <thelabdev@thelab.co>"]
 readme = "README.md"

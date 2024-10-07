@@ -1,5 +1,17 @@
 # Changes
 
+## v2.9.0 (2024-10-07)
+
+### Feat
+
+- allow localizing page links
+- add type hints and mypy checking
+
+### Refactor
+
+- add isort
+- refactor link resolution into overrideable class
+
 ## v2.8.1 (2024-08-31)
 
 ## v2.8.1b0 (2024-08-08)
