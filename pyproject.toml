@@ -20,7 +20,7 @@ django-stubs-ext = "^5.1.0"
 [tool.poetry.group.dev.dependencies]
 flake8 = ">=7.1.1"
 tox = ">=4.23.2"
-mypy = "^1.12.1"
+mypy = "^1.13.0"
 django-stubs = "^5.1.0"
 coverage = "^7.6.4"
 
