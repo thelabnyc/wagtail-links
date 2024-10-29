@@ -21,7 +21,7 @@ django-stubs-ext = "^5.1.0"
 flake8 = ">=7.1.1"
 tox = ">=4.23.2"
 mypy = "^1.13.0"
-django-stubs = "^5.1.0"
+django-stubs = "^5.1.1"
 coverage = "^7.6.4"
 
 [build-system]
