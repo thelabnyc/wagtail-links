@@ -1,5 +1,16 @@
 # Changes
 
+## v2.10.0 (2024-11-01)
+
+### Feat
+
+- wagtail 6.3
+
+### Fix
+
+- **deps**: update dependency django-stubs-ext to ^5.1.1
+- **deps**: update dependency django-stubs-ext to ^5.1.0
+
 ## v2.9.0 (2024-10-07)
 
 ### Feat
