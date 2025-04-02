@@ -1,4 +1,4 @@
-from typing import Any, Protocol, Tuple
+from typing import Any, Protocol
 import logging
 
 from django.conf import settings
@@ -119,7 +119,7 @@ class Link(index.Indexed, models.Model):
         # Translators: Internal Model Name (plural)
         verbose_name_plural = _("Links")
 
-    def natural_key(self) -> Tuple[str]:
+    def natural_key(self) -> tuple[str]:
         return (self.name,)
 
     def __str__(self) -> str:

@@ -49,27 +49,23 @@ class WagtailLinksTest(WagtailPageTests):
 
     def test_cast_link_to_string(self):
         link = Link.objects.create(name="example", link_external="https://example.com")
-        self.assertEqual("{}".format(link), "Link[name=example]: https://example.com")
+        self.assertEqual(f"{link}", "Link[name=example]: https://example.com")
 
         link = Link.objects.create(link_external="https://example.com")
         self.assertEqual(
-            "{}".format(link),
+            f"{link}",
             "Link[link_external=https://example.com]: https://example.com",
         )
 
         link = Link.objects.create(link_relative="/example.com")
-        self.assertEqual(
-            "{}".format(link), "Link[link_relative=/example.com]: /example.com"
-        )
+        self.assertEqual(f"{link}", "Link[link_relative=/example.com]: /example.com")
 
         page = Page.objects.first()
         link = Link.objects.create(link_page=page)
-        self.assertEqual("{}".format(link), "Link[link_page=Root]: No Link URL")
+        self.assertEqual(f"{link}", "Link[link_page=Root]: No Link URL")
 
         link = Link.objects.create(django_view_name="admin:index")
-        self.assertEqual(
-            "{}".format(link), "Link[django_view_name=admin:index]: /admin/"
-        )
+        self.assertEqual(f"{link}", "Link[django_view_name=admin:index]: /admin/")
 
     def test_multiple_blank_link_names(self):
         link1 = Link.objects.create(name="", link_external="https://example.com/1")
