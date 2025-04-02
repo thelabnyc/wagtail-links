@@ -1,5 +1,5 @@
 from collections.abc import Sequence
-from typing import Any, Optional
+from typing import Any
 
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models.fields import SlugField
@@ -20,15 +20,15 @@ class NullSlugField(SlugField):  # type:ignore[type-arg]
 
     def from_db_value(
         self,
-        value: Optional[str],
+        value: str | None,
         *args: Any,
         **kwargs: Any,
-    ) -> Optional[str]:
+    ) -> str | None:
         value = self.to_python(value)
         # If the value was stored as null, return empty string instead
         return value if value is not None else ""
 
-    def get_prep_value(self, value: Optional[str]) -> Optional[str]:
+    def get_prep_value(self, value: str | None) -> str | None:
         prepped = super().get_prep_value(value)
         # If the value was stored as empty string, return None instead
         return prepped if prepped != "" else None

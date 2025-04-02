@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 import logging
 
 from django import template
@@ -11,7 +11,7 @@ register = template.Library()
 
 
 @register.simple_tag
-def get_wagtail_link(link_name: str) -> Optional[Link]:
+def get_wagtail_link(link_name: str) -> Link | None:
     """
     Get a Link object by its name.
     """
