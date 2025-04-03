@@ -1,5 +1,21 @@
 # Changes
 
+## v2.11.0 (2025-04-03)
+
+### Feat
+
+- support Django 5.2 / Python 3.13 / Wagtail 6.4. Drop Django 5.0 / Python 3.10 / Wagtail 5.2
+
+### Fix
+
+- **deps**: update dependency django-stubs-ext to ^5.1.3
+- **deps**: update dependency django-stubs-ext to ^5.1.2
+- **deps**: update dependency wagtail to >=5.2.6,<6.4
+
+### Refactor
+
+- add pyupgrade / django-upgrade precommit hooks
+
 ## v2.10.0 (2024-11-01)
 
 ### Feat
