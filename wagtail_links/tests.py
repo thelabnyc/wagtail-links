@@ -43,9 +43,7 @@ class WagtailLinksTest(WagtailPageTests):
     def test_log_broken_links(self, mock_logger):
         link = Link.objects.create(django_view_name="doesnotexist")
         link.url
-        mock_logger.warning.assert_called_with(
-            "Unable to reverse Django URL for Link[id=%s]", link.pk
-        )
+        mock_logger.warning.assert_called_with("Unable to reverse Django URL for Link[id=%s]", link.pk)
 
     def test_cast_link_to_string(self):
         link = Link.objects.create(name="example", link_external="https://example.com")
@@ -86,9 +84,7 @@ class WagtailLinksTagsTest(WagtailPageTests):
             """
         )
         rendered_template = template.render(context)
-        self.assertInHTML(
-            '<a href="https://example.com">Testing</a>', rendered_template
-        )
+        self.assertInHTML('<a href="https://example.com">Testing</a>', rendered_template)
 
     def test_get_wagtail_link_url(self):
         Link.objects.create(name="example", link_external="https://example.com/test2/")
@@ -100,6 +96,4 @@ class WagtailLinksTagsTest(WagtailPageTests):
             """
         )
         rendered_template = template.render(context)
-        self.assertInHTML(
-            '<a href="https://example.com/test2/">Testing</a>', rendered_template
-        )
+        self.assertInHTML('<a href="https://example.com/test2/">Testing</a>', rendered_template)

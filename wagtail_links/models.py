@@ -27,9 +27,9 @@ def validate_django_reverse(view_name: str) -> None:
 
 
 class LinkResolver(Protocol):
-    def get_descr(self, link: "Link") -> str: ...  # NOQA: E704
+    def get_descr(self, link: "Link") -> str: ...
 
-    def get_url(  # NOQA: E704
+    def get_url(
         self,
         link: "Link",
         localized: bool = True,
@@ -60,9 +60,7 @@ class Link(index.Indexed, models.Model):
         unique=True,
         help_text=_("Unique name for this link (for use by Django templates)."),
     )
-    link_external = models.URLField(
-        _("External Link"), blank=True, help_text=_("Absolute URL Link")
-    )
+    link_external = models.URLField(_("External Link"), blank=True, help_text=_("Absolute URL Link"))
     link_relative = models.CharField(
         _("Relative Link"),
         max_length=200,
@@ -132,12 +130,7 @@ class Link(index.Indexed, models.Model):
 
     def clean(self) -> None:
         # Don't allow multiple link types to be used
-        number_used = (
-            bool(self.link_external)
-            + bool(self.link_relative)
-            + bool(self.link_page)
-            + bool(self.django_view_name)
-        )
+        number_used = bool(self.link_external) + bool(self.link_relative) + bool(self.link_page) + bool(self.django_view_name)
         if number_used > 1:
             raise ValidationError(_("You may only use one link type"))
         if number_used == 0:
