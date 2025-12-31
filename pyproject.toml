@@ -27,7 +27,7 @@ dev = [
     "tox==4.32.0",
     "mypy (==1.19.1)",
     "django-stubs (==5.2.8)",
-    "coverage (==7.13.0)",
+    "coverage (==7.13.1)",
     "tox-uv>=1.29.0",
 ]
 
