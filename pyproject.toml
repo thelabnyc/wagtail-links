@@ -23,7 +23,7 @@ Repository = "https://gitlab.com/thelabnyc/wagtail-links"
 
 [dependency-groups]
 dev = [
-    "ruff>=0.15.7",
+    "ruff>=0.15.8",
     "tox==4.50.3",
     "mypy (==1.19.1)",
     "django-stubs (==5.2.9)",
