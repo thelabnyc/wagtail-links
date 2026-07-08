@@ -61,6 +61,29 @@ From a template, you can also load a link by its name:
 This is useful for global page links, navigation, etc.
 
 
+## Customising searchable fields
+
+By default, link search (in the Snippets area and in link choosers) matches the
+link's `title` and its linked page's title. To override which fields are
+searchable, set `WAGTAIL_LINKS_SEARCH_FIELDS` to a list of
+`wagtail.search.index` fields:
+
+```py
+# settings.py
+from wagtail.search import index
+
+WAGTAIL_LINKS_SEARCH_FIELDS = [
+    index.AutocompleteField("title"),
+    index.AutocompleteField("name"),
+    index.AutocompleteField("link_external"),
+    index.AutocompleteField("link_relative"),
+]
+```
+
+Leaving it unset keeps the default. After changing it, run
+`python manage.py update_index` to re-index existing links.
+
+
 ## Validation and logging
 
 The Link model will validate that one and only one field is set.

@@ -2,10 +2,22 @@ from unittest.mock import patch
 
 from django.core.exceptions import ValidationError
 from django.template import Context, Template
+from django.test import override_settings
 from wagtail.models import Page
+from wagtail.search import index
 from wagtail.test.utils import WagtailPageTests
 
-from .models import Link
+from .models import DEFAULT_SEARCH_FIELDS, Link
+
+
+class WagtailLinksSearchFieldsTest(WagtailPageTests):
+    def test_defaults_when_setting_unset(self):
+        self.assertEqual(Link.get_search_fields(), DEFAULT_SEARCH_FIELDS)
+
+    @override_settings(WAGTAIL_LINKS_SEARCH_FIELDS=[index.AutocompleteField("testname")])
+    def test_uses_setting_when_set(self):
+        fields = Link.get_search_fields()
+        self.assertEqual([f.field_name for f in fields], ["testname"])
 
 
 class WagtailLinksTest(WagtailPageTests):
