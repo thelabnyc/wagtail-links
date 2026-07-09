@@ -44,10 +44,10 @@ class LinkManager(models.Manager["Link"]):
         return self.get(name=name)
 
 
-DEFAULT_SEARCH_FIELDS = [
+DEFAULT_SEARCH_FIELDS = (
     index.RelatedFields("link_page", [index.AutocompleteField("title")]),
     index.AutocompleteField("title"),
-]
+)
 
 
 @register_snippet
@@ -108,11 +108,14 @@ class Link(index.Indexed, models.Model):
         FieldPanel("django_view_name"),
     ]
 
-    search_fields = DEFAULT_SEARCH_FIELDS
+    search_fields = list(DEFAULT_SEARCH_FIELDS)
 
     @classmethod
-    def get_search_fields(cls) -> list[index.BaseField]:
-        return getattr(settings, "WAGTAIL_LINKS_SEARCH_FIELDS", DEFAULT_SEARCH_FIELDS)
+    def get_search_fields(cls) -> list[Any]:
+        # Return a fresh list so callers can't mutate the shared default or the
+        # project's settings list. RelatedFields is not a BaseField subclass, so
+        # the element type is Any.
+        return list(getattr(settings, "WAGTAIL_LINKS_SEARCH_FIELDS", DEFAULT_SEARCH_FIELDS))
 
     class Meta(TypedModelMeta):
         # Translators: Internal Model Name (singular)

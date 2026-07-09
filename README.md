@@ -80,6 +80,20 @@ WAGTAIL_LINKS_SEARCH_FIELDS = [
 ]
 ```
 
+The `Link` model also exposes a `search_url` property: the resolved URL with
+separators replaced by spaces. Index it so full-text backends can match
+individual host/path segments (e.g. `2022` in `.../2022/...`), which they
+can't do against a raw URL (Postgres indexes it as one opaque token):
+
+```py
+WAGTAIL_LINKS_SEARCH_FIELDS = [
+    index.SearchField("title", boost=10),
+    index.AutocompleteField("title"),
+    index.SearchField("search_url"),
+    index.AutocompleteField("search_url"),
+]
+```
+
 Leaving it unset keeps the default. After changing it, run
 `python manage.py update_index` to re-index existing links.
 

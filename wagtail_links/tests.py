@@ -12,7 +12,7 @@ from .models import DEFAULT_SEARCH_FIELDS, Link
 
 class WagtailLinksSearchFieldsTest(WagtailPageTests):
     def test_defaults_when_setting_unset(self):
-        self.assertEqual(Link.get_search_fields(), DEFAULT_SEARCH_FIELDS)
+        self.assertEqual(Link.get_search_fields(), list(DEFAULT_SEARCH_FIELDS))
 
     @override_settings(WAGTAIL_LINKS_SEARCH_FIELDS=[index.AutocompleteField("testname")])
     def test_uses_setting_when_set(self):
