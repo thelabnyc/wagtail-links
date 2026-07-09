@@ -1,5 +1,6 @@
 from typing import Any, Protocol
 import logging
+import re
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -129,6 +130,12 @@ class Link(index.Indexed, models.Model):
     def url(self) -> str:
         """Get URL for use in template"""
         return self.get_url()
+
+    @property
+    def search_url(self) -> str:
+        """The URL with separators replaced by spaces, so full-text search
+        backends tokenize it into individual host/path segments."""
+        return re.sub(r"[\W_]+", " ", self.url).strip()
 
     def clean(self) -> None:
         # Don't allow multiple link types to be used

@@ -83,6 +83,10 @@ class WagtailLinksTest(WagtailPageTests):
         self.assertEqual(link1.name, "")
         self.assertEqual(link2.name, "")
 
+    def test_search_url_splits_separators(self):
+        link = Link.objects.create(link_external="https://www.archpaper.com/2022/11/best-of/")
+        self.assertEqual(link.search_url, "https www archpaper com 2022 11 best of")
+
 
 class WagtailLinksTagsTest(WagtailPageTests):
     def test_get_wagtail_link(self):
