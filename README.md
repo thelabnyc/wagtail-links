@@ -97,7 +97,6 @@ WAGTAIL_LINKS_SEARCH_FIELDS = [
     index.SearchField("title", boost=10),
     index.AutocompleteField("title"),
     index.SearchField("search_url"),
-    index.AutocompleteField("search_url"),
 ]
 ```
 
