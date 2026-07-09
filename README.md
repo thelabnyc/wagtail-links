@@ -80,6 +80,13 @@ WAGTAIL_LINKS_SEARCH_FIELDS = [
 ]
 ```
 
+This **replaces** the default entirely, so list every field you want
+searchable — for example, re-add
+`index.RelatedFields("link_page", [index.AutocompleteField("title")])` to keep
+matching the linked page's title. Use `index.SearchField(field, boost=N)` to
+rank some fields above others in full-text search; `index.AutocompleteField`
+powers the type-ahead matching used in the link choosers.
+
 The `Link` model also exposes a `search_url` property: the resolved URL with
 separators replaced by spaces. Index it so full-text backends can match
 individual host/path segments (e.g. `2022` in `.../2022/...`), which they
