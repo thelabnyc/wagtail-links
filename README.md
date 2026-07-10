@@ -61,47 +61,20 @@ From a template, you can also load a link by its name:
 This is useful for global page links, navigation, etc.
 
 
-## Customising searchable fields
+## Searching links
 
-By default, link search (in the Snippets area and in link choosers) matches the
-link's `title` and its linked page's title. To override which fields are
-searchable, set `WAGTAIL_LINKS_SEARCH_FIELDS` to a list of
-`wagtail.search.index` fields:
+Every field on a `Link` is searchable, both in the Snippets area and in the
+link choosers: `title`, `name`, `link_external`, `link_relative`,
+`django_view_name`, and the linked page's title. Each field is indexed as both
+a full-text `SearchField` and an `AutocompleteField` (type-ahead).
 
-```py
-# settings.py
-from wagtail.search import index
+The resolved URL is also indexed via the `search_url` property, which replaces
+separators with spaces so full-text backends can match individual host/path
+segments (e.g. `2022` in `.../2022/...`) — something they can't do against a
+raw URL, which Postgres indexes as one opaque token.
 
-WAGTAIL_LINKS_SEARCH_FIELDS = [
-    index.AutocompleteField("title"),
-    index.AutocompleteField("name"),
-    index.AutocompleteField("link_external"),
-    index.AutocompleteField("link_relative"),
-]
-```
-
-This **replaces** the default entirely, so list every field you want
-searchable — for example, re-add
-`index.RelatedFields("link_page", [index.AutocompleteField("title")])` to keep
-matching the linked page's title. Use `index.SearchField(field, boost=N)` to
-rank some fields above others in full-text search; `index.AutocompleteField`
-powers the type-ahead matching used in the link choosers.
-
-The `Link` model also exposes a `search_url` property: the resolved URL with
-separators replaced by spaces. Index it so full-text backends can match
-individual host/path segments (e.g. `2022` in `.../2022/...`), which they
-can't do against a raw URL (Postgres indexes it as one opaque token):
-
-```py
-WAGTAIL_LINKS_SEARCH_FIELDS = [
-    index.SearchField("title", boost=10),
-    index.AutocompleteField("title"),
-    index.SearchField("search_url"),
-]
-```
-
-Leaving it unset keeps the default. After changing it, run
-`python manage.py update_index` to re-index existing links.
+Upgrading from an earlier version re-indexes existing links automatically via a
+migration, so no manual `python manage.py update_index` is needed.
 
 
 ## Validation and logging

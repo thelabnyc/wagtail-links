@@ -2,73 +2,42 @@ from unittest.mock import patch
 
 from django.core.exceptions import ValidationError
 from django.template import Context, Template
-from django.test import override_settings
 from wagtail.models import Page
-from wagtail.search import index
 from wagtail.search.backends import get_search_backend
 from wagtail.test.utils import WagtailPageTests
 
-from .models import DEFAULT_SEARCH_FIELDS, Link
-
-
-class WagtailLinksSearchFieldsResolutionTest(WagtailPageTests):
-    """Unit-level checks of how the WAGTAIL_LINKS_SEARCH_FIELDS setting resolves."""
-
-    def test_defaults_when_setting_unset(self):
-        self.assertEqual(Link.get_search_fields(), list(DEFAULT_SEARCH_FIELDS))
-
-    @override_settings(WAGTAIL_LINKS_SEARCH_FIELDS=[index.AutocompleteField("testname")])
-    def test_uses_setting_when_set(self):
-        self.assertEqual([f.field_name for f in Link.get_search_fields()], ["testname"])
-
-    @override_settings(WAGTAIL_LINKS_SEARCH_FIELDS=[])
-    def test_empty_list_is_respected(self):
-        # An explicit empty list means "no searchable fields" (contract).
-        self.assertEqual(Link.get_search_fields(), [])
+from .models import Link
 
 
 class WagtailLinksSearchBehaviorTest(WagtailPageTests):
-    """End-to-end checks that the override actually changes what the search
-    backend matches -- guarding against a Wagtail upgrade silently bypassing
-    get_search_fields()."""
+    """End-to-end checks that every field is searchable via the backend."""
 
     def index_all(self):
         backend = get_search_backend()
         backend.add_bulk(Link, Link.objects.all())
         return backend
 
-    def test_default_fields_do_not_match_name(self):
-        # The zero-match behavior #34777 addresses: by default a Link is not
-        # findable by its `name`.
-        link = Link.objects.create(name="accountxyz", link_external="https://example.com")
-        backend = self.index_all()
-        self.assertNotIn(link, list(backend.autocomplete("accountxyz", Link)))
-
-    @override_settings(WAGTAIL_LINKS_SEARCH_FIELDS=[index.SearchField("name")])
-    def test_override_reaches_backend_search(self):
+    def test_name_is_searchable(self):
         link = Link.objects.create(name="accountxyz", link_external="https://example.com")
         backend = self.index_all()
         self.assertIn(link, list(backend.search("accountxyz", Link)))
-
-    @override_settings(WAGTAIL_LINKS_SEARCH_FIELDS=[index.AutocompleteField("name")])
-    def test_override_reaches_chooser_autocomplete(self):
-        link = Link.objects.create(name="accountxyz", link_external="https://example.com")
-        backend = self.index_all()
         self.assertIn(link, list(backend.autocomplete("account", Link)))
 
-    @override_settings(WAGTAIL_LINKS_SEARCH_FIELDS=[index.SearchField("search_url")])
-    def test_override_matches_url_segment(self):
+    def test_title_is_searchable(self):
+        link = Link.objects.create(title="Homepage banner", link_external="https://example.com")
+        backend = self.index_all()
+        self.assertIn(link, list(backend.search("banner", Link)))
+
+    def test_link_relative_is_searchable(self):
+        link = Link.objects.create(name="rel", link_relative="/promos/summer/")
+        backend = self.index_all()
+        self.assertIn(link, list(backend.search("summer", Link)))
+
+    def test_url_segment_is_searchable(self):
         # search_url splits the URL so a path segment is matchable.
         link = Link.objects.create(name="u1", link_external="https://example.com/2022/report/")
         backend = self.index_all()
         self.assertIn(link, list(backend.search("2022", Link)))
-
-    @override_settings(WAGTAIL_LINKS_SEARCH_FIELDS=[])
-    def test_empty_list_matches_nothing(self):
-        Link.objects.create(name="findme", title="findme", link_external="https://example.com")
-        backend = self.index_all()
-        self.assertEqual(list(backend.search("findme", Link)), [])
-        self.assertEqual(list(backend.autocomplete("findme", Link)), [])
 
 
 class WagtailLinksTest(WagtailPageTests):
