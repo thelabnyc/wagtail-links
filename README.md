@@ -73,8 +73,10 @@ separators with spaces so full-text backends can match individual host/path
 segments (e.g. `2022` in `.../2022/...`) — something they can't do against a
 raw URL, which Postgres indexes as one opaque token.
 
-Upgrading from an earlier version re-indexes existing links automatically via a
-migration, so no manual `python manage.py update_index` is needed.
+Upgrading from an earlier version only changes what gets written to the search
+index going forward; links already stored stay indexed under the old field set
+until re-indexed. Run `python manage.py update_index` to rebuild the index so
+existing links pick up the expanded searchable fields.
 
 
 ## Validation and logging
