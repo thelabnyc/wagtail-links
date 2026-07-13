@@ -103,9 +103,10 @@ class Link(index.Indexed, models.Model):
     ]
 
     # Stored fields each get a SearchField (full-text) and an AutocompleteField
-    # (type-ahead, used by the link choosers). `search_url` is a computed
-    # property that indexes the resolved URL split into segments so backends can
-    # match individual host/path parts; it's full-text only, so no autocomplete.
+    # (type-ahead, used by the link choosers). ``search_url`` is a computed
+    # property that additionally covers the *resolved* URL (e.g. for page and
+    # Django-view links, whose URL isn't stored on the row); it's full-text
+    # only, so it gets no autocomplete.
     search_fields = [
         index.SearchField("title"),
         index.AutocompleteField("title"),
@@ -146,8 +147,10 @@ class Link(index.Indexed, models.Model):
 
     @property
     def search_url(self) -> str:
-        """The URL with separators replaced by spaces, so full-text search
-        backends tokenize it into individual host/path segments."""
+        """
+        The resolved URL with separators replaced by spaces, so full-text search
+        backends tokenize it into individual segments.
+        """
         return re.sub(r"[\W_]+", " ", self.url).strip()
 
     def clean(self) -> None:
