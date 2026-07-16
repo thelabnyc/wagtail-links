@@ -1,5 +1,11 @@
 # Changes
 
+## v2.12.0 (2026-07-16)
+
+### Feat
+
+- make all fields searchable sans API
+
 ## v2.11.0 (2025-04-03)
 
 ### Feat
