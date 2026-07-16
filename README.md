@@ -61,6 +61,24 @@ From a template, you can also load a link by its name:
 This is useful for global page links, navigation, etc.
 
 
+## Searching links
+
+Every field on a `Link` is searchable, both in the Snippets area and in the
+link choosers: `title`, `name`, `link_external`, `link_relative`,
+`django_view_name`, and the linked page's title. Each field is indexed as both
+a full-text `SearchField` and an `AutocompleteField` (type-ahead).
+
+The resolved URL is also indexed via the `search_url` property, which replaces
+separators with spaces so full-text backends can match individual host/path
+segments (e.g. `2022` in `.../2022/...`) — something they can't do against a
+raw URL, which Postgres indexes as one opaque token.
+
+Upgrading from an earlier version only changes what gets written to the search
+index going forward; links already stored stay indexed under the old field set
+until re-indexed. Run `python manage.py update_index` to rebuild the index so
+existing links pick up the expanded searchable fields.
+
+
 ## Validation and logging
 
 The Link model will validate that one and only one field is set.

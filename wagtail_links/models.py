@@ -1,5 +1,7 @@
 from typing import Any, Protocol
+from urllib.parse import unquote
 import logging
+import re
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -101,14 +103,30 @@ class Link(index.Indexed, models.Model):
         FieldPanel("django_view_name"),
     ]
 
+    # Stored fields each get a SearchField (full-text) and an AutocompleteField
+    # (type-ahead, used by the link choosers). ``search_url`` is a computed
+    # property that additionally covers the *resolved* URL (e.g. for page and
+    # Django-view links, whose URL isn't stored on the row); it's full-text
+    # only, so it gets no autocomplete.
     search_fields = [
+        index.SearchField("title"),
+        index.AutocompleteField("title"),
+        index.SearchField("name"),
+        index.AutocompleteField("name"),
+        index.SearchField("link_external"),
+        index.AutocompleteField("link_external"),
+        index.SearchField("link_relative"),
+        index.AutocompleteField("link_relative"),
+        index.SearchField("django_view_name"),
+        index.AutocompleteField("django_view_name"),
+        index.SearchField("search_url"),
         index.RelatedFields(
             "link_page",
             [
+                index.SearchField("title"),
                 index.AutocompleteField("title"),
             ],
         ),
-        index.AutocompleteField("title"),
     ]
 
     class Meta(TypedModelMeta):
@@ -127,6 +145,16 @@ class Link(index.Indexed, models.Model):
     def url(self) -> str:
         """Get URL for use in template"""
         return self.get_url()
+
+    @property
+    def search_url(self) -> str:
+        """
+        The resolved URL with separators replaced by spaces, so full-text search
+        backends tokenize it into individual segments. The URL is percent-decoded
+        first so encoded segments (e.g. ``%20``, ``caf%C3%A9``) match their
+        human-readable form rather than being indexed as encoding noise.
+        """
+        return re.sub(r"[\W_]+", " ", unquote(self.url)).strip()
 
     def clean(self) -> None:
         # Don't allow multiple link types to be used
