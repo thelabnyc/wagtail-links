@@ -1,4 +1,5 @@
 from typing import Any, Protocol
+from urllib.parse import unquote
 import logging
 import re
 
@@ -149,9 +150,11 @@ class Link(index.Indexed, models.Model):
     def search_url(self) -> str:
         """
         The resolved URL with separators replaced by spaces, so full-text search
-        backends tokenize it into individual segments.
+        backends tokenize it into individual segments. The URL is percent-decoded
+        first so encoded segments (e.g. ``%20``, ``caf%C3%A9``) match their
+        human-readable form rather than being indexed as encoding noise.
         """
-        return re.sub(r"[\W_]+", " ", self.url).strip()
+        return re.sub(r"[\W_]+", " ", unquote(self.url)).strip()
 
     def clean(self) -> None:
         # Don't allow multiple link types to be used
