@@ -96,7 +96,7 @@ class WagtailLinksTest(WagtailPageTests):
     @patch("wagtail_links.resolver.logger")
     def test_log_broken_links(self, mock_logger):
         link = Link.objects.create(django_view_name="doesnotexist")
-        link.url
+        _ = link.url
         mock_logger.warning.assert_called_with("Unable to reverse Django URL for Link[id=%s]", link.pk)
 
     def test_cast_link_to_string(self):

@@ -1,4 +1,4 @@
-from typing import Any, Protocol
+from typing import Any, ClassVar, Protocol
 from urllib.parse import unquote
 import logging
 import re
@@ -11,7 +11,7 @@ from django.urls import NoReverseMatch, reverse
 from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 from django_stubs_ext.db.models import TypedModelMeta
-from wagtail.admin.panels import FieldPanel, PageChooserPanel
+from wagtail.admin.panels import FieldPanel, PageChooserPanel, Panel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
@@ -94,7 +94,7 @@ class Link(index.Indexed, models.Model):
 
     objects = LinkManager()
 
-    panels = [
+    panels: ClassVar[list[Panel]] = [
         FieldPanel("title"),
         FieldPanel("name"),
         FieldPanel("link_external"),
@@ -108,7 +108,7 @@ class Link(index.Indexed, models.Model):
     # property that additionally covers the *resolved* URL (e.g. for page and
     # Django-view links, whose URL isn't stored on the row); it's full-text
     # only, so it gets no autocomplete.
-    search_fields = [
+    search_fields: ClassVar[list[index.BaseField | index.RelatedFields]] = [
         index.SearchField("title"),
         index.AutocompleteField("title"),
         index.SearchField("name"),

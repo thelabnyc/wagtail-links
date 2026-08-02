@@ -36,4 +36,4 @@ def get_wagtail_link_url(
     link = get_wagtail_link(link_name)
     if link is None:
         return ""
-    return link.get_url(localized=localized, *args, **kwargs)
+    return link.get_url(*args, localized=localized, **kwargs)
