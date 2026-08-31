@@ -31,13 +31,7 @@ python manage.py migrate
 Add a foreign key to the page you wish to add links to.
 
 ```py
-my_link = models.ForeignKey(
-    'wagtail_links.Link',
-    null=True,
-    blank=True,
-    on_delete=models.SET_NULL,
-    related_name='+'
-)
+my_link = models.ForeignKey("wagtail_links.Link", null=True, blank=True, on_delete=models.SET_NULL, related_name="+")
 ```
 
 Neat:
