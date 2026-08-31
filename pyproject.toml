@@ -7,7 +7,7 @@ name = "wagtail-links"
 version = "2.12.0"
 description = "Wagtail links provides a consistent way to refer to links in a wagtail page."
 readme = "README.md"
-dependencies = ["wagtail (>=7.0)", "django-stubs-ext (>=5.2.9,<6)"]
+dependencies = ["wagtail (>=7.0)", "django-stubs-ext (>=5.2.9,<7)"]
 requires-python = ">=3.11"
 
 [project.license]
@@ -26,7 +26,7 @@ dev = [
     "ruff>=0.16.5",
     "tox==4.60.1",
     "mypy (==2.3.1)",
-    "django-stubs (==5.2.9)",
+    "django-stubs (==6.1.0)",
     "coverage (==7.15.4)",
     "tox-uv>=1.36.0",
 ]
