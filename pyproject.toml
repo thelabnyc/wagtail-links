@@ -24,11 +24,11 @@ Repository = "https://gitlab.com/thelabnyc/wagtail-links"
 [dependency-groups]
 dev = [
     "ruff>=0.17.0",
-    "tox==4.65.2",
+    "tox==4.65.3",
     "mypy (==2.4.0)",
     "django-stubs (==6.1.0)",
     "coverage (==7.16.2)",
-    "tox-uv>=1.36.1",
+    "tox-uv>=1.37.0",
 ]
 
 [tool.hatch.build.targets.wheel]
