@@ -1376,7 +1376,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "django-stubs-ext", specifier = ">=5.2.9,<7" },
-    { name = "wagtail", specifier = ">=7.0" },
+    { name = "wagtail", specifier = ">=7.4" },
 ]
 
 [package.metadata.requires-dev]
